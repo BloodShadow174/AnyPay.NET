@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>AnyPay</Title>
+    <Authors>Kisik42</Authors>
+    <AssemblyName>AnyPay</AssemblyName>
+    <RootNamespace>AnyPay</RootNamespace>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <PackageId>AnyPay</PackageId>
+    <Version>1.0.0.1</Version>
+    <Description>Payment system AnyPay.io</Description>
+    <Copyright>Copyright © AnyPay.NET 2023</Copyright>
+    <PackageProjectUrl>https://github.com/BloodShadow174/AnyPay.NET</PackageProjectUrl>
+    <PackageIcon>package-icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/BloodShadow174/AnyPay.NET.git</RepositoryUrl>
+    <PackageTags>AnyPay;Api</PackageTags>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Product>AnyPay.NET</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="package-icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
