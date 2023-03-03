@@ -12,6 +12,7 @@ Use the [nuget package](https://www.nuget.org/packages/AnyPay/).
 var anyPayClient = new AnyPayClient(
     "YOUR_API_ID",
     "YOUR_API_KEY",
+    "YOUR_SECRET_KEY",
     12345 //Your project id
 );
 
