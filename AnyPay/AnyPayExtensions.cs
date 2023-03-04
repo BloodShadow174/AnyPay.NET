@@ -209,10 +209,10 @@ public static class AnyPayExtensions
         var payments = await anyPayClient
             .GetPaymentsAsync(payId: payId, cancellationToken: cancellationToken);
 
-        if (payments.Payments is null || payments.Total == 0)
+        if (payments.Payments is null)
             return null;
 
-        return payments.Payments.FirstOrDefault().Value;
+        return payments.Payments.Select(p => p.Value).FirstOrDefault();
     }
 
     /// <summary>
@@ -326,10 +326,10 @@ public static class AnyPayExtensions
         var payouts = await anyPayClient
             .GetPayoutsAsync(payoutId: payoutId, cancellationToken: cancellationToken);
 
-        if (payouts.Payouts is null || payouts.Total == 0)
+        if (payouts.Payouts is null)
             return null;
 
-        return payouts.Payouts.FirstOrDefault().Value;
+        return payouts.Payouts.Select(p => p.Value).FirstOrDefault();
     }
 
     /// <summary>
