@@ -1,7 +1,13 @@
 # .NET Client for AnyPay
+
+[![package](https://img.shields.io/nuget/vpre/AnyPay.svg?label=AnyPay&style=flat-square)](https://www.nuget.org/packages/AnyPay)
+[![downloads](https://img.shields.io/nuget/dt/AnyPay.svg?style=flat-square&label=Package%20Downloads)](https://www.nuget.org/packages/AnyPay)
+[![contributors](https://img.shields.io/github/contributors/BloodShadow174/AnyPay.NET.svg?style=flat-square&label=Contributors)](https://github.com/BloodShadow174/AnyPay.NET/graphs/contributors)
+[![license](https://img.shields.io/github/license/BloodShadow174/AnyPay.NET.svg?style=flat-square&maxAge=2592000&label=License)](https://raw.githubusercontent.com/BloodShadow174/AnyPay.NET/master/LICENSE)
+
 AnyPay is a payment system that allows you to accept payments using the API.
 
-This **.NET** library will help you work with **[AnyPay](https://anypay.io/)** through the [Any Pay API](https://anypay.io/doc/api).
+This **.NET** library will help you work with **[AnyPay](https://anypay.io/)** through the [AnyPay API](https://anypay.io/doc/api).
 
 ## Install
 
