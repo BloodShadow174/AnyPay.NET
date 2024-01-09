@@ -33,11 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="..\package-icon.png" PackagePath="\">
+    <None Include="..\package-icon.png" PackagePath="">
       <Pack>True</Pack>
       <Link>package-icon.png</Link>
     </None>
-    <None Include="..\README.md" PackagePath="\">
+    <None Include="..\README.md" PackagePath="">
       <Pack>True</Pack>
       <Link>README.md</Link>
     </None>
