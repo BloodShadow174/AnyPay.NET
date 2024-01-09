@@ -12,15 +12,15 @@
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
     <PackageId>AnyPay</PackageId>
-    <Version>1.0.1.0</Version>
+    <Version>1.0.2.0</Version>
     <Description>Payment system AnyPay.io</Description>
-    <Copyright>Copyright © AnyPay.NET 2023</Copyright>
+    <Copyright>Copyright © AnyPay.NET 2024</Copyright>
     <PackageProjectUrl>https://github.com/BloodShadow174/AnyPay.NET</PackageProjectUrl>
     <PackageIcon>package-icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/BloodShadow174/AnyPay.NET.git</RepositoryUrl>
     <PackageTags>AnyPay;Api</PackageTags>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Product>AnyPay.NET</Product>
@@ -33,13 +33,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="package-icon.png">
+    <None Update="..\package-icon.png" PackagePath="\">
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <Link>package-icon.png</Link>
     </None>
-    <None Include="../README.md">
+    <None Include="..\README.md" PackagePath="\">
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <Link>README.md</Link>
     </None>
   </ItemGroup>
 
