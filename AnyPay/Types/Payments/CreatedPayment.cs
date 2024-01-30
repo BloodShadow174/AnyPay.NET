@@ -35,4 +35,10 @@ public sealed class CreatedPayment
     /// </summary>
     [JsonProperty(Required = Required.Always)]
     public string PaymentUrl { get; set; } = null!;
+
+    /// <summary>
+    /// Output of payment details
+    /// </summary>
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public PaymentData? PaymentData { get; set; }
 }
