@@ -12,6 +12,8 @@ namespace AnyPay;
 
 public class AnyPayClient
 {
+    public const long MaxPayId = 99999999999999;
+
     private readonly string _apiId;
 
     private readonly string _apiKey;
@@ -58,30 +60,132 @@ public class AnyPayClient
         _httpClient = httpClient ?? new HttpClient();
     }
 
-    internal Uri MakeMerchantUri(long payId, double amount, Currency currency)
+    /// <summary>
+    /// Generate a special URL to initiate payment.
+    /// </summary>
+    /// <param name="payId">Order number in the seller's system (up to 15 characters from the characters "0-9")</param>
+    /// <param name="amount">Payment amount (for example, 100.00)</param>
+    /// <param name="currency">
+    /// Payment currency according to ISO 4217:
+    ///   RUB - Russian ruble (default);
+    ///   UAH - Ukrainian hryvnia;
+    ///   BYN - Belarusian ruble;
+    ///   KZT - Kazakhstani tenge;
+    ///   USD - US dollar;
+    ///   EUR - Euro
+    /// </param>
+    /// <param name="desc">Short description of the payment (up to 150 symbols)</param>
+    /// <param name="email">Payer's email address</param>
+    /// <param name="phone">Payer phone number (for example, 79990000000)</param>
+    /// <param name="method">Payment method (see <see cref="PaymentSystem"/>)</param>
+    /// <param name="successUrl">Forwarding address in case of successful payment</param>
+    /// <param name="failUrl">Forwarding address in case of unsuccessful payment</param>
+    /// <param name="lang">
+    /// Payment page interface language:
+    ///   ru - Russian (default);
+    ///   en - English
+    /// </param>
+    /// <param name="additionalProperties">Additional seller parameters</param>
+    /// <returns>Special URL to initiate payment</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    internal Uri MakeMerchantUri(
+        long payId,
+        double amount,
+        Currency currency,
+        string? desc = default,
+        string? email = default,
+        long? phone = default,
+        PaymentSystem? method = default,
+        string? successUrl = default,
+        string? failUrl = default,
+        string? lang = default,
+        IDictionary<string, string>? additionalProperties = default
+    )
     {
-        if (payId <= 0)
-            throw new MerchantException($"Argument {nameof(payId)} cannot be 0 or less than zero.");
-
-        if (payId > 99999999999999)
-            throw new MerchantException($"Argument {nameof(payId)} can't be greater than 99999999999999.");
+        if (payId <= 0 || payId > MaxPayId)
+            throw new ArgumentOutOfRangeException(
+                paramName: nameof(payId),
+                message: $"PayId must be a positive integer not greater than {MaxPayId}."
+            );
 
         if (amount <= 0)
-            throw new MerchantException($"Argument {nameof(amount)} cannot be 0 or less than zero.");
+            throw new ArgumentOutOfRangeException(
+                paramName: nameof(amount),
+                message: "Amount must be greater than zero."
+            );
+
+        var urlParameters = new Dictionary<string, string>();
 
         string amountString = amount.ToString(CultureInfo.InvariantCulture);
 
-        var urlParameters = new Dictionary<string, string>
+        urlParameters.AddOptionalParameter(
+            key: "merchant_id",
+            value: _projectId.ToString()
+        );
+        urlParameters.AddOptionalParameter(
+            key: "pay_id",
+            value: payId.ToString()
+        );
+        urlParameters.AddOptionalParameter(
+            key: "amount",
+            value: amountString
+        );
+        urlParameters.AddOptionalParameter(
+            key: "currency",
+            value: currency.ToString()
+        );
+        urlParameters.AddOptionalParameter(
+            key: "desc",
+            value: desc
+        );
+        urlParameters.AddOptionalParameter(
+            key: "email",
+            value: email
+        );
+        urlParameters.AddOptionalParameter(
+            key: "phone",
+            value: phone?.ToString()
+        );
+        urlParameters.AddOptionalParameter(
+            key: "method",
+            value: method?.ToString()
+        );
+        urlParameters.AddOptionalParameter(
+            key: "success_url",
+            value: successUrl
+        );
+        urlParameters.AddOptionalParameter(
+            key: "fail_url",
+            value: failUrl
+        );
+        urlParameters.AddOptionalParameter(
+            key: "lang",
+            value: lang
+        );
+        urlParameters.AddOptionalParameter(
+            key: "sign",
+            value: CalculateSign(currency, amountString, payId)
+        );
+
+        if (additionalProperties != null)
         {
-            { "merchant_id", _projectId.ToString() },
-            { "pay_id", payId.ToString() },
-            { "amount", amountString },
-            { "currency", currency.ToString() },
-            { "sign", $"{currency}:{amountString}:{_secretKey}:{_projectId}:{payId}".ToMD5() },
-        };
+            foreach (var additionalProperty in additionalProperties)
+            {
+                urlParameters.AddOptionalParameter(
+                    additionalProperty.Key,
+                    additionalProperty.Value
+                );
+            }
+        }
 
         return new Uri(_merchantUrl).AddParameters(urlParameters);
     }
+
+    private string CalculateSign(
+        Currency currency,
+        string amountString,
+        long payId
+    ) => $"{currency}:{amountString}:{_secretKey}:{_projectId}:{payId}".ToMD5();
 
     internal async Task<TResponse> MakeRequestAsync<TResponse>(
         IRequest<TResponse> request,
