@@ -113,6 +113,7 @@ public static class AnyPayExtensions
     ///   ru - Russian (default);
     ///   en - English
     /// </param>
+    /// <param name="additionalProperties">Additional seller parameters</param>
     /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     /// <returns><see cref="CreatedPayment"/></returns>
     public static async Task<CreatedPayment> CreatePaymentAsync(
@@ -129,6 +130,7 @@ public static class AnyPayExtensions
         string? successUrl = default,
         string? failUrl = default,
         string? lang = default,
+        IDictionary<string, string>? additionalProperties = default,
         CancellationToken cancellationToken = default
     )
     {
@@ -150,7 +152,8 @@ public static class AnyPayExtensions
                     tail,
                     successUrl,
                     failUrl,
-                    lang
+                    lang,
+                    additionalProperties
                 ),
                 cancellationToken
             )
