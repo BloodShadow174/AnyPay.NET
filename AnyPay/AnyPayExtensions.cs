@@ -113,6 +113,7 @@ public static class AnyPayExtensions
     ///   ru - Russian (default);
     ///   en - English
     /// </param>
+    /// <param name="additionalProperties">Additional seller parameters</param>
     /// <param name="cancellationToken"><see cref="CancellationToken"/></param>
     /// <returns><see cref="CreatedPayment"/></returns>
     public static async Task<CreatedPayment> CreatePaymentAsync(
@@ -129,6 +130,7 @@ public static class AnyPayExtensions
         string? successUrl = default,
         string? failUrl = default,
         string? lang = default,
+        IDictionary<string, string>? additionalProperties = default,
         CancellationToken cancellationToken = default
     )
     {
@@ -150,7 +152,8 @@ public static class AnyPayExtensions
                     tail,
                     successUrl,
                     failUrl,
-                    lang
+                    lang,
+                    additionalProperties
                 ),
                 cancellationToken
             )
@@ -355,9 +358,8 @@ public static class AnyPayExtensions
     }
 
     /// <summary>
-    /// Get payment link
+    /// Generate a special URL to initiate payment.
     /// </summary>
-    /// <param name="anyPayClient"><see cref="AnyPayClient" /></param>
     /// <param name="payId">Order number in the seller's system (up to 15 characters from the characters "0-9")</param>
     /// <param name="amount">Payment amount (for example, 100.00)</param>
     /// <param name="currency">
@@ -369,12 +371,45 @@ public static class AnyPayExtensions
     ///   USD - US dollar;
     ///   EUR - Euro
     /// </param>
-    /// <returns>Payment link</returns>
+    /// <param name="desc">Short description of the payment (up to 150 symbols)</param>
+    /// <param name="email">Payer's email address</param>
+    /// <param name="phone">Payer phone number (for example, 79990000000)</param>
+    /// <param name="method">Payment method (see <see cref="PaymentSystem"/>)</param>
+    /// <param name="successUrl">Forwarding address in case of successful payment</param>
+    /// <param name="failUrl">Forwarding address in case of unsuccessful payment</param>
+    /// <param name="lang">
+    /// Payment page interface language:
+    ///   ru - Russian (default);
+    ///   en - English
+    /// </param>
+    /// <param name="additionalProperties">Additional seller parameters</param>
+    /// <returns>Special URL to initiate payment</returns>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    /// <exception cref="InvalidOperationException"></exception>
     public static string GetMerchantUri(
         this AnyPayClient anyPayClient,
         long payId,
         double amount,
-        Currency currency = Currency.RUB
-    )
-        => anyPayClient.ThrowIfNull().MakeMerchantUri(payId, amount, currency).AbsoluteUri;
+        Currency currency,
+        string? desc = default,
+        string? email = default,
+        long? phone = default,
+        PaymentSystem? method = default,
+        string? successUrl = default,
+        string? failUrl = default,
+        string? lang = default,
+        IDictionary<string, string>? additionalProperties = default
+    ) => anyPayClient.ThrowIfNull().MakeMerchantUri(
+        payId: payId,
+        amount: amount,
+        currency: currency,
+        desc: desc,
+        email: email,
+        phone: phone,
+        method: method,
+        successUrl: successUrl,
+        failUrl: failUrl,
+        lang: lang,
+        additionalProperties: additionalProperties
+    ).AbsoluteUri;
 }

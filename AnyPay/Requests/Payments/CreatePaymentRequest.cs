@@ -49,6 +49,7 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
     ///   ru - Russian (default);
     ///   en - English
     /// </param>
+    /// <param name="additionalProperties">Additional seller parameters</param>
     public CreatePaymentRequest(
         string apiId,
         string apiKey,
@@ -64,7 +65,8 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
         int? tail = default,
         string? successUrl = default,
         string? failUrl = default,
-        string? lang = default
+        string? lang = default,
+        IDictionary<string, string>? additionalProperties = default
     )
         : base("create-payment")
     {
@@ -92,6 +94,7 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
             method.GetMemberValueOrValue(),
             apiKey
         );
+        AdditionalProperties = additionalProperties;
     }
 
     /// <summary>
@@ -190,4 +193,10 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
     /// </summary>
     [JsonProperty(Required = Required.Always)]
     public string Sign { get; }
+
+    /// <summary>
+    /// Additional seller parameters
+    /// </summary>
+    [JsonExtensionData]
+    public IDictionary<string, string>? AdditionalProperties { get; }
 }

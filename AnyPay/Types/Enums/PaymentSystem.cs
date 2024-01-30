@@ -17,6 +17,7 @@ public enum PaymentSystem
     [EnumMember(Value = "wm")]
     WebMoney = 3,
     [EnumMember(Value = "mp")]
+    [Obsolete("No longer supported.")]
     MobilePhone = 4,
     [EnumMember(Value = "card")]
     Card = 5,
@@ -59,6 +60,7 @@ public enum PaymentSystem
     [EnumMember(Value = "tele2")]
     Tele2 = 24,
     [EnumMember(Value = "exmo")]
+    [Obsolete("No longer supported.")]
     Exmo = 25,
     [EnumMember(Value = "term")]
     Terminal = 26,

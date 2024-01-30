@@ -1,8 +1,12 @@
-﻿namespace AnyPay.Types.Enums;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace AnyPay.Types.Enums;
 
 /// <summary>
 /// Payment currency according to ISO 4217 (cryptocurrencies have sequence numbers from 10000)
 /// </summary>
+[JsonConverter(typeof(StringEnumConverter))]
 public enum Currency
 {
     /// <summary>
