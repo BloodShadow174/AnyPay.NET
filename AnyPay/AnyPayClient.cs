@@ -10,23 +10,23 @@ using System.Runtime.CompilerServices;
 
 namespace AnyPay;
 
-public class AnyPayClient
+public class AnyPayClient(string apiId, string apiKey, string secretKey, int projectId, HttpClient? httpClient = default)
 {
     public const long MaxPayId = 99999999999999;
 
-    private readonly string _apiId;
+    private readonly string _apiId = apiId;
 
-    private readonly string _apiKey;
+    private readonly string _apiKey = apiKey;
 
-    private readonly string _secretKey;
+    private readonly string _secretKey = secretKey;
 
-    private readonly int _projectId;
+    private readonly int _projectId = projectId;
 
-    private readonly string _apiUrl;
+    private readonly string _apiUrl = "https://anypay.io/api";
 
-    private readonly string _merchantUrl;
+    private readonly string _merchantUrl = "https://anypay.io/merchant";
 
-    private readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient = httpClient ?? new HttpClient();
 
     internal string ApiId
     {
@@ -41,23 +41,6 @@ public class AnyPayClient
     internal int ProjectId
     {
         get => _projectId;
-    }
-
-    public AnyPayClient(
-        string apiId,
-        string apiKey,
-        string secretKey,
-        int projectId,
-        HttpClient? httpClient = null
-    )
-    {
-        _apiId = apiId;
-        _apiKey = apiKey;
-        _secretKey = secretKey;
-        _projectId = projectId;
-        _apiUrl = "https://anypay.io/api";
-        _merchantUrl = "https://anypay.io/merchant";
-        _httpClient = httpClient ?? new HttpClient();
     }
 
     /// <summary>
@@ -192,9 +175,8 @@ public class AnyPayClient
         CancellationToken cancellationToken = default
     )
     {
-        if (request is null)
-            throw new ArgumentNullException(nameof(request));
-        
+        ArgumentNullException.ThrowIfNull(request);
+
         var uri = $"{_apiUrl}/{request.MethodName}/{_apiId}";
 
         using var httpRequest = new HttpRequestMessage(request.HttpMethod, uri)
