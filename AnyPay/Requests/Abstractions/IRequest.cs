@@ -1,7 +1,7 @@
 ﻿namespace AnyPay.Requests.Abstractions;
 
 /// <summary>
-/// Represents a request to Anypay API
+/// Represents a request to AnyPay API
 /// </summary>
 internal interface IRequest
 {

@@ -8,10 +8,9 @@ internal class ExceptionParser
 {
     internal static ApiRequestException Parse(IResponse apiResponse)
     {
-        if (apiResponse is null)
-            throw new ArgumentNullException(nameof(apiResponse));
+        ArgumentNullException.ThrowIfNull(apiResponse);
 
-        if(apiResponse.Error is null)
+        if (apiResponse.Error is null)
             throw new NullReferenceException(nameof(apiResponse.Error));
 
         return new(

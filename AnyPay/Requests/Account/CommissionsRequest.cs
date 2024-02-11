@@ -13,9 +13,9 @@ internal sealed class CommissionsRequest : ParameterlessRequest<IDictionary<Paym
     /// <summary>
     /// Initializes a new request to get <see cref="IDictionary{PaymentSystem, double}"/>
     /// </summary>
-    /// <param name="apiId">Anypay API ID</param>
-    /// <param name="apiKey">Anypay API Key</param
-    /// <param name="projectId">Anypay project ID</param>
+    /// <param name="apiId">AnyPay API ID</param>
+    /// <param name="apiKey">AnyPay API Key</param
+    /// <param name="projectId">AnyPay project ID</param>
     public CommissionsRequest(string apiId, string apiKey, int projectId)
         : base("commissions")
     {
@@ -24,7 +24,7 @@ internal sealed class CommissionsRequest : ParameterlessRequest<IDictionary<Paym
     }
 
     /// <summary>
-    /// Anypay project ID
+    /// AnyPay project ID
     /// </summary>
     [JsonProperty(Required = Required.Always)]
     public int ProjectId { get; }

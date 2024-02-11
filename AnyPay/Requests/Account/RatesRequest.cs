@@ -13,8 +13,8 @@ internal sealed class RatesRequest : ParameterlessRequest<Rates>
     /// <summary>
     /// Initializes a new request to get <see cref="Rates"/>
     /// </summary>
-    /// <param name="apiId">Anypay API ID</param>
-    /// <param name="apiKey">Anypay API Key</param
+    /// <param name="apiId">AnyPay API ID</param>
+    /// <param name="apiKey">AnyPay API Key</param
     public RatesRequest(string apiId, string apiKey)
         : base("rates")
     {

@@ -1,7 +1,3 @@
 ﻿namespace AnyPay.Exceptions;
 
-public class MerchantException : Exception
-{
-    public MerchantException(string message)
-        : base(message) { }
-}
+public class MerchantException(string message) : Exception(message) { }

@@ -1,7 +1,7 @@
 ﻿namespace AnyPay.Types.Abstractions;
 
 /// <summary>
-/// Response from Anypay service
+/// Response from AnyPay service
 /// </summary>
 public interface IResponse
 {
