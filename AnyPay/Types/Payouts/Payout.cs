@@ -48,7 +48,7 @@ public sealed class Payout
     /// Payout commission
     /// </summary>
     [JsonProperty(Required = Required.Always)]
-    public double Comission { get; set; }
+    public double Commission { get; set; }
 
     /// <summary>
     /// Where is the commission charged from?

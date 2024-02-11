@@ -17,9 +17,9 @@ internal sealed class CreatePayoutRequest : ParameterlessRequest<Payout>
     /// <summary>
     /// Initializes a new request to get <see cref="Payout"/>
     /// </summary>
-    /// <param name="apiId">Anypay API ID</param>
-    /// <param name="apiKey">Anypay API Key</param
-    /// <param name="projectId">Anypay project ID</param>
+    /// <param name="apiId">AnyPay API ID</param>
+    /// <param name="apiKey">AnyPay API Key</param
+    /// <param name="projectId">AnyPay project ID</param>
     /// <param name="payoutId">Unique payout number in the merchant system</param>
     /// <param name="payoutType">
     /// Payout system:
@@ -75,7 +75,7 @@ internal sealed class CreatePayoutRequest : ParameterlessRequest<Payout>
     }
 
     /// <summary>
-    /// Anypay project ID
+    /// AnyPay project ID
     /// </summary>
     [JsonProperty(Required = Required.Always)]
     public int ProjectId { get; }

@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace AnyPay.Types;
 
 /// <summary>
-/// Represents Anypay API response
+/// Represents AnyPay API response
 /// </summary>
 /// <typeparam name="TResult">Expected type of operation result</typeparam>
 [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
@@ -24,7 +24,7 @@ public sealed class ApiResponse<TResult> : IResponse<TResult>
     /// <summary>
     /// Initializes an instance of <see cref="ApiResponse.Error" />
     /// </summary>
-    /// <param name="error">Instanse of <see cref="Error"/></param>
+    /// <param name="error">Instance of <see cref="Error"/></param>
     public ApiResponse(Error error)
     {
         Error = error;

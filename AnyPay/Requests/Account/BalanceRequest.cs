@@ -13,8 +13,8 @@ internal sealed class BalanceRequest : ParameterlessRequest<AccountBalance>
     /// <summary>
     /// Initializes a new request to get <see cref="AccountBalance"/>
     /// </summary>
-    /// <param name="apiId">Anypay API ID</param>
-    /// <param name="apiKey">Anypay API Key</param>
+    /// <param name="apiId">AnyPay API ID</param>
+    /// <param name="apiKey">AnyPay API Key</param>
     public BalanceRequest(string apiId, string apiKey)
         : base("balance")
     {

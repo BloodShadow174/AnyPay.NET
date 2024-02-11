@@ -21,14 +21,14 @@ internal class RequestBase<TResponse> : IRequest<TResponse>
     /// <summary>
     /// Initializes an instance of request
     /// </summary>
-    /// <param name="methodName">Anypay API method</param>
+    /// <param name="methodName">AnyPay API method</param>
     protected RequestBase(string methodName)
         : this(methodName, HttpMethod.Post) { }
 
     /// <summary>
     /// Initializes an instance of request
     /// </summary>
-    /// <param name="methodName">Anypay API method</param>
+    /// <param name="methodName">AnyPay API method</param>
     /// <param name="httpMethod">HTTP method to use</param>
     protected RequestBase(string methodName, HttpMethod httpMethod)
     {

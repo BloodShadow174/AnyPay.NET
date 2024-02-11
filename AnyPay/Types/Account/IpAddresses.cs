@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 namespace AnyPay.Types.Account;
 
 /// <summary>
-/// Anypay IP address list
+/// AnyPay IP address list
 /// </summary>
 [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
 public sealed class IpAddresses

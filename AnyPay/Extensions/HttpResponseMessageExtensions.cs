@@ -37,9 +37,6 @@ internal static class HttpResponseMessageExtensions
 
             try
             {
-                //var test = await httpResponse.Content.ReadAsStringAsync();
-                //var viewTest = test;
-
                 contentStream = await httpResponse.Content
                     .ReadAsStreamAsync()
                     .ConfigureAwait(continueOnCapturedContext: false);

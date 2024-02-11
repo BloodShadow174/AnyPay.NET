@@ -17,9 +17,9 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
     /// <summary>
     /// Initializes a new request to get <see cref="CreatedPayment"/>
     /// </summary>
-    /// <param name="apiId">Anypay API ID</param>
-    /// <param name="apiKey">Anypay API Key</param
-    /// <param name="projectId">Anypay project ID</param>
+    /// <param name="apiId">AnyPay API ID</param>
+    /// <param name="apiKey">AnyPay API Key</param
+    /// <param name="projectId">AnyPay project ID</param>
     /// <param name="payId">Order number in the seller's system (up to 15 characters from the characters "0-9")</param>
     /// <param name="amount">Payment amount (for example, 100.00)</param>
     /// <param name="currency">
@@ -36,8 +36,8 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
     /// <param name="method">Payment method (see <see cref="PaymentSystem"/>)</param>
     /// <param name="methodCurrency">
     /// Currency of payment method:
-    /// Webmoney (USD, EUR);
-    /// Advcash (RUB, USD, EUR);
+    /// WebMoney (USD, EUR);
+    /// AdvCash (RUB, USD, EUR);
     /// Perfect Money (USD, EUR)
     /// </param>
     /// <param name="phone">Payer phone number (for example, 79990000000)</param>
@@ -98,7 +98,7 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
     }
 
     /// <summary>
-    /// Anypay project ID
+    /// AnyPay project ID
     /// </summary>
     [JsonProperty(Required = Required.Always)]
     public int ProjectId { get; }
@@ -142,8 +142,8 @@ internal sealed class CreatePaymentRequest : ParameterlessRequest<CreatedPayment
 
     /// <summary>
     /// Currency of payment method:
-    /// Webmoney (USD, EUR);
-    /// Advcash (RUB, USD, EUR);
+    /// WebMoney (USD, EUR);
+    /// AdvCash (RUB, USD, EUR);
     /// Perfect Money (USD, EUR)
     /// </summary>
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]

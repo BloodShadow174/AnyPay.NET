@@ -164,7 +164,7 @@ public static class AnyPayExtensions
     /// Receiving payment transactions
     /// </summary>
     /// <param name="anyPayClient"><see cref="AnyPayClient"/></param>
-    /// <param name="transId">Anypay payment number</param>
+    /// <param name="transId">AnyPay payment number</param>
     /// <param name="payId">Order number in the seller's system (up to 15 characters from the characters "0-9")</param>
     /// <param name="offset">
     /// The offset required to select a specific subset of transactions (default is 0).
@@ -281,7 +281,7 @@ public static class AnyPayExtensions
     /// Receiving payout transactions
     /// </summary>
     /// <param name="anyPayClient"><see cref="AnyPayClient"/></param>
-    /// <param name="transId">Anypay payout number</param>
+    /// <param name="transId">AnyPay payout number</param>
     /// <param name="payoutId">Payout number in merchant system</param>
     /// <param name="offset">
     /// The offset required to select a specific subset of transactions (default is 0).
