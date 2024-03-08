@@ -383,6 +383,7 @@ public static class AnyPayExtensions
     ///   en - English
     /// </param>
     /// <param name="additionalProperties">Additional seller parameters</param>
+    /// <param name="signType">Request signature type</param>
     /// <returns>Special URL to initiate payment</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <exception cref="InvalidOperationException"></exception>
@@ -398,7 +399,8 @@ public static class AnyPayExtensions
         string? successUrl = default,
         string? failUrl = default,
         string? lang = default,
-        IDictionary<string, string>? additionalProperties = default
+        IDictionary<string, string>? additionalProperties = default,
+        SignType signType = SignType.MD5
     ) => anyPayClient.ThrowIfNull().MakeMerchantUri(
         payId: payId,
         amount: amount,
@@ -410,6 +412,7 @@ public static class AnyPayExtensions
         successUrl: successUrl,
         failUrl: failUrl,
         lang: lang,
-        additionalProperties: additionalProperties
+        additionalProperties: additionalProperties,
+        signType: signType
     ).AbsoluteUri;
 }
