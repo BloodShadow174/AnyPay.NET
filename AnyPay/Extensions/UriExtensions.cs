@@ -11,7 +11,7 @@ internal static class UriExtensions
     /// <param name="paramName">Name of the parameter to add.</param>
     /// <param name="paramValue">Value for the parameter to add.</param>
     /// <returns>Url with added parameter.</returns>
-    public static Uri AddParameter(this Uri url, string paramName, string paramValue)
+    public static Uri AddParameter(this Uri url, string paramName, string? paramValue)
     {
         var uriBuilder = new UriBuilder(url);
 
@@ -24,7 +24,7 @@ internal static class UriExtensions
         return uriBuilder.Uri;
     }
 
-    public static Uri AddParameters(this Uri url, IDictionary<string, string> urlParameters)
+    public static Uri AddParameters(this Uri url, IDictionary<string, string?> urlParameters)
     {
         var uriBuilder = new UriBuilder(url);
 

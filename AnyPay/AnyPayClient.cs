@@ -4,6 +4,7 @@ using AnyPay.Helpers;
 using AnyPay.Requests.Abstractions;
 using AnyPay.Types;
 using AnyPay.Types.Enums;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Net;
 using System.Runtime.CompilerServices;
@@ -87,67 +88,61 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
         SignType signType = SignType.MD5
     )
     {
-        if (payId <= 0 || payId > MaxPayId)
-            throw new ArgumentOutOfRangeException(
-                paramName: nameof(payId),
-                message: $"PayId must be a positive integer not greater than {MaxPayId}."
-            );
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(payId, nameof(payId));
 
-        if (amount <= 0)
-            throw new ArgumentOutOfRangeException(
-                paramName: nameof(amount),
-                message: "Amount must be greater than zero."
-            );
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(payId, MaxPayId, nameof(payId));
 
-        var urlParameters = new Dictionary<string, string>();
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(amount, nameof(amount));
 
-        string amountString = amount.ToString(CultureInfo.InvariantCulture);
+        var urlParameters = new ConcurrentDictionary<string, string?>();
 
-        urlParameters.AddOptionalParameter(
+        string amountString = amount.ToString("0.00", CultureInfo.InvariantCulture);
+
+        urlParameters.TryAdd(
             key: "merchant_id",
             value: _projectId.ToString()
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "pay_id",
             value: payId.ToString()
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "amount",
             value: amountString
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "currency",
             value: currency.ToString()
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "desc",
             value: desc
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "email",
             value: email
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "phone",
             value: phone?.ToString()
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "method",
             value: method?.ToString()
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "success_url",
             value: successUrl
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "fail_url",
             value: failUrl
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "lang",
             value: lang
         );
-        urlParameters.AddOptionalParameter(
+        urlParameters.TryAdd(
             key: "sign",
             value: CalculateSign(
                 signType: signType,
@@ -164,7 +159,7 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
         {
             foreach (var additionalProperty in additionalProperties)
             {
-                urlParameters.AddOptionalParameter(
+                urlParameters.TryAdd(
                     additionalProperty.Key,
                     additionalProperty.Value
                 );
@@ -173,7 +168,7 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
 
         return new Uri(_merchantUrl).AddParameters(urlParameters);
     }
-    //_projectId = merchant_id
+
     private string CalculateSign(
         SignType signType,
         long payId,
@@ -191,7 +186,7 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
 
         if (signType is SignType.SHA256)
         {
-            return $"{_projectId}:{payId}:{amountString}:{currency}:{desc}:{successUrl}:{failUrl}".ToSHA256();
+            return $"{_projectId}:{payId}:{amountString}:{currency}:{desc}:{successUrl}:{failUrl}:{_secretKey}".ToSHA256();
         }
 
         throw new MerchantException($"Sign type {signType} is not supported.");
