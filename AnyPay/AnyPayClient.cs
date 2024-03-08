@@ -69,6 +69,7 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
     ///   en - English
     /// </param>
     /// <param name="additionalProperties">Additional seller parameters</param>
+    /// <param name="signType">Request signature type</param>
     /// <returns>Special URL to initiate payment</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     internal Uri MakeMerchantUri(
@@ -82,7 +83,8 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
         string? successUrl = default,
         string? failUrl = default,
         string? lang = default,
-        IDictionary<string, string>? additionalProperties = default
+        IDictionary<string, string>? additionalProperties = default,
+        SignType signType = SignType.MD5
     )
     {
         if (payId <= 0 || payId > MaxPayId)
@@ -147,7 +149,15 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
         );
         urlParameters.AddOptionalParameter(
             key: "sign",
-            value: CalculateSign(currency, amountString, payId)
+            value: CalculateSign(
+                signType: signType,
+                payId: payId,
+                amountString: amountString,
+                currency: currency,
+                desc: desc,
+                successUrl: successUrl,
+                failUrl: failUrl
+            )
         );
 
         if (additionalProperties != null)
@@ -163,12 +173,29 @@ public class AnyPayClient(string apiId, string apiKey, string secretKey, int pro
 
         return new Uri(_merchantUrl).AddParameters(urlParameters);
     }
-
+    //_projectId = merchant_id
     private string CalculateSign(
-        Currency currency,
+        SignType signType,
+        long payId,
         string amountString,
-        long payId
-    ) => $"{currency}:{amountString}:{_secretKey}:{_projectId}:{payId}".ToMD5();
+        Currency currency,
+        string? desc,
+        string? successUrl,
+        string? failUrl
+    )
+    {
+        if (signType is SignType.MD5)
+        {
+            return $"{currency}:{amountString}:{_secretKey}:{_projectId}:{payId}".ToMD5();
+        }
+
+        if (signType is SignType.SHA256)
+        {
+            return $"{_projectId}:{payId}:{amountString}:{currency}:{desc}:{successUrl}:{failUrl}".ToSHA256();
+        }
+
+        throw new MerchantException($"Sign type {signType} is not supported.");
+    }
 
     internal async Task<TResponse> MakeRequestAsync<TResponse>(
         IRequest<TResponse> request,
