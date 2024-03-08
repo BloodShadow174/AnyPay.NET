@@ -13,15 +13,15 @@
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <SignAssembly>False</SignAssembly>
     <PackageId>AnyPay</PackageId>
-    <Version>1.1.3.0</Version>
+    <Version>1.1.4.0</Version>
     <Description>Payment system AnyPay.io</Description>
     <Copyright>Copyright © AnyPay.NET 2024</Copyright>
     <PackageProjectUrl>https://github.com/BloodShadow174/AnyPay.NET</PackageProjectUrl>
     <PackageIcon>package-icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/BloodShadow174/AnyPay.NET.git</RepositoryUrl>
     <PackageTags>AnyPay;Api</PackageTags>
-    <AssemblyVersion>1.1.3.0</AssemblyVersion>
-    <FileVersion>1.1.3.0</FileVersion>
+    <AssemblyVersion>1.1.4.0</AssemblyVersion>
+    <FileVersion>1.1.4.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Product>AnyPay.NET</Product>
